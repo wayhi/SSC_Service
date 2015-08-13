@@ -73,16 +73,13 @@ class MainController extends Controller
         $tiger_repeat_times = 0;
         $non_equal_times =0;
 
-        $ball1_odd_even = true;
-        $ball1_big_small =true;
-        $ball2_odd_even = true;
-        $ball2_big_small =true;
-        $ball3_odd_even = true;
-        $ball3_big_small =true;
-        $ball4_odd_even = true;
-        $ball4_big_small =true;
-        $ball5_odd_even = true;
-        $ball5_big_small =true;
+        $ball_odd_even = [];
+        $ball_big_small =[];
+        $ball_big_repeats = [];
+        $ball_small_repeats = [];
+        $ball_odd_repeats =[];
+        $ball_even_repeats =[];
+
 
 
         $n=0;
@@ -111,6 +108,119 @@ class MainController extends Controller
                     $odd_flag = false;
                     $even_repeat_times=1;
                 }
+                /*---each ball initial status */
+                /*1st ball */
+                if($result->ball_1>4)
+                {
+                    $ball_big_small[0] =true;
+                    $ball_big_repeats[0]=1;
+                    $ball_small_repeats[0]=0;
+                }else{
+                    $ball_big_small[0] =false;
+                    $ball_small_repeats[0]=1;
+                    $ball_big_repeats[0]=0;
+                }
+
+                if(($result->ball_1%2)<>0)
+                {
+                    $ball_odd_even[0] =true;
+                    $ball_odd_repeats[0]=1;
+                    $ball_even_repeats[0]=0;
+                }else{
+                    $ball_odd_even[0] =false;
+                    $ball_even_repeats[0]=1;
+                    $ball_odd_repeats[0]=0;
+                }
+                //2nd ball
+                if($result->ball_2>4)
+                {
+                    $ball_big_small[1] =true;
+                    $ball_big_repeats[1]=1;
+                    $ball_small_repeats[1]=0;
+                }else{
+                    $ball_big_small[1] =false;
+                    $ball_small_repeats[1]=1;
+                    $ball_big_repeats[1]=0;
+                }
+
+                if(($result->ball_2%2)<>0)
+                {
+                    $ball_odd_even[1] =true;
+                    $ball_odd_repeats[1]=1;
+                    $ball_even_repeats[1]=0;
+                }else{
+                    $ball_odd_even[1] =false;
+                    $ball_even_repeats[1]=1;
+                    $ball_odd_repeats[1]=0;
+                }
+                //3rd ball
+                if($result->ball_3>4)
+                {
+                    $ball_big_small[2] =true;
+                    $ball_big_repeats[2]=1;
+                    $ball_small_repeats[2]=0;
+                }else{
+                    $ball_big_small[2] =false;
+                    $ball_small_repeats[2]=1;
+                    $ball_big_repeats[2]=0;
+                }
+
+                if(($result->ball_3%2)<>0)
+                {
+                    $ball_odd_even[2] =true;
+                    $ball_odd_repeats[2]=1;
+                    $ball_even_repeats[2]=0;
+                }else{
+                    $ball_odd_even[2] =false;
+                    $ball_even_repeats[2]=1;
+                    $ball_odd_repeats[2]=0;
+                }
+                //4th ball
+                if($result->ball_4>4)
+                {
+                    $ball_big_small[3] =true;
+                    $ball_big_repeats[3]=1;
+                    $ball_small_repeats[3]=0;
+                }else{
+                    $ball_big_small[3] =false;
+                    $ball_small_repeats[3]=1;
+                    $ball_big_repeats[3]=0;
+                }
+
+                if(($result->ball_4%2)<>0)
+                {
+                    $ball_odd_even[3] =true;
+                    $ball_odd_repeats[3]=1;
+                    $ball_even_repeats[3]=0;
+                }else{
+                    $ball_odd_even[3] =false;
+                    $ball_even_repeats[3]=1;
+                    $ball_odd_repeats[3]=0;
+                }
+                //5th ball
+                if($result->ball_5>4)
+                {
+                    $ball_big_small[4] =true;
+                    $ball_big_repeats[4]=1;
+                    $ball_small_repeats[4]=0;
+                }else{
+                    $ball_big_small[4] =false;
+                    $ball_small_repeats[4]=1;
+                    $ball_big_repeats[4]=0;
+                }
+
+                if(($result->ball_5%2)<>0)
+                {
+                    $ball_odd_even[4] =true;
+                    $ball_odd_repeats[4]=1;
+                    $ball_even_repeats[4]=0;
+                }else{
+                    $ball_odd_even[4] =false;
+                    $ball_even_repeats[4]=1;
+                    $ball_odd_repeats[4]=0;
+                }
+                //ball end
+
                 switch ($result->d_t) {
                     case '龙':
                         $dragon_flag=true;
@@ -233,6 +343,13 @@ class MainController extends Controller
                             break;
                     }
                 }
+
+                //checking each ball .....
+
+                
+
+
+                //ball checking ends
 
             }
             

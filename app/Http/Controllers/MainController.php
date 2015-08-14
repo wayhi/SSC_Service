@@ -112,110 +112,110 @@ class MainController extends Controller
                 /*1st ball */
                 if($result->ball_1>4)
                 {
-                    $ball_big_small[0] =true;
+                    $ball_big_small[0] =1;
                     $ball_big_repeats[0]=1;
                     $ball_small_repeats[0]=0;
                 }else{
-                    $ball_big_small[0] =false;
+                    $ball_big_small[0] =-1;
                     $ball_small_repeats[0]=1;
                     $ball_big_repeats[0]=0;
                 }
 
                 if(($result->ball_1%2)<>0)
                 {
-                    $ball_odd_even[0] =true;
+                    $ball_odd_even[0] =1;
                     $ball_odd_repeats[0]=1;
                     $ball_even_repeats[0]=0;
                 }else{
-                    $ball_odd_even[0] =false;
+                    $ball_odd_even[0] =-1;
                     $ball_even_repeats[0]=1;
                     $ball_odd_repeats[0]=0;
                 }
                 //2nd ball
                 if($result->ball_2>4)
                 {
-                    $ball_big_small[1] =true;
+                    $ball_big_small[1] =1;
                     $ball_big_repeats[1]=1;
                     $ball_small_repeats[1]=0;
                 }else{
-                    $ball_big_small[1] =false;
+                    $ball_big_small[1] =-1;
                     $ball_small_repeats[1]=1;
                     $ball_big_repeats[1]=0;
                 }
 
                 if(($result->ball_2%2)<>0)
                 {
-                    $ball_odd_even[1] =true;
+                    $ball_odd_even[1] =1;
                     $ball_odd_repeats[1]=1;
                     $ball_even_repeats[1]=0;
                 }else{
-                    $ball_odd_even[1] =false;
+                    $ball_odd_even[1] =-1;
                     $ball_even_repeats[1]=1;
                     $ball_odd_repeats[1]=0;
                 }
                 //3rd ball
                 if($result->ball_3>4)
                 {
-                    $ball_big_small[2] =true;
+                    $ball_big_small[2] =1;
                     $ball_big_repeats[2]=1;
                     $ball_small_repeats[2]=0;
                 }else{
-                    $ball_big_small[2] =false;
+                    $ball_big_small[2] =-1;
                     $ball_small_repeats[2]=1;
                     $ball_big_repeats[2]=0;
                 }
 
                 if(($result->ball_3%2)<>0)
                 {
-                    $ball_odd_even[2] =true;
+                    $ball_odd_even[2] =1;
                     $ball_odd_repeats[2]=1;
                     $ball_even_repeats[2]=0;
                 }else{
-                    $ball_odd_even[2] =false;
+                    $ball_odd_even[2] =-1;
                     $ball_even_repeats[2]=1;
                     $ball_odd_repeats[2]=0;
                 }
                 //4th ball
                 if($result->ball_4>4)
                 {
-                    $ball_big_small[3] =true;
+                    $ball_big_small[3] =1;
                     $ball_big_repeats[3]=1;
                     $ball_small_repeats[3]=0;
                 }else{
-                    $ball_big_small[3] =false;
+                    $ball_big_small[3] =-1;
                     $ball_small_repeats[3]=1;
                     $ball_big_repeats[3]=0;
                 }
 
                 if(($result->ball_4%2)<>0)
                 {
-                    $ball_odd_even[3] =true;
+                    $ball_odd_even[3] =1;
                     $ball_odd_repeats[3]=1;
                     $ball_even_repeats[3]=0;
                 }else{
-                    $ball_odd_even[3] =false;
+                    $ball_odd_even[3] =-1;
                     $ball_even_repeats[3]=1;
                     $ball_odd_repeats[3]=0;
                 }
                 //5th ball
                 if($result->ball_5>4)
                 {
-                    $ball_big_small[4] =true;
+                    $ball_big_small[4] =1;
                     $ball_big_repeats[4]=1;
                     $ball_small_repeats[4]=0;
                 }else{
-                    $ball_big_small[4] =false;
+                    $ball_big_small[4] =-1;
                     $ball_small_repeats[4]=1;
                     $ball_big_repeats[4]=0;
                 }
 
                 if(($result->ball_5%2)<>0)
                 {
-                    $ball_odd_even[4] =true;
+                    $ball_odd_even[4] =1;
                     $ball_odd_repeats[4]=1;
                     $ball_even_repeats[4]=0;
                 }else{
-                    $ball_odd_even[4] =false;
+                    $ball_odd_even[4] =-1;
                     $ball_even_repeats[4]=1;
                     $ball_odd_repeats[4]=0;
                 }
@@ -345,7 +345,40 @@ class MainController extends Controller
                 }
 
                 //checking each ball .....
+                for ($i=0; $i <5 ; $i++) { 
+                    if($ball_big_small[$i]==1)
+                    {
+                        //if big flag
+                        if($result->ball_1>4)
+                        {
+                            $ball_big_repeats[$i] +=1;
+                            
 
+                        }else{
+
+                            $ball_big_small[$i]=0；
+
+                        }
+                        
+
+                    }elseif($ball_big_small[$i]==-1){
+                        //if small
+                        if($result->ball_1<=4) 
+                        {
+                            $ball_small_repeats[$i] +=1;
+                            
+
+                        }else{
+
+                            $ball_big_small[$i]=0；
+
+                        }
+                        
+                        
+                    }
+
+                    
+                }
                 
 
 

@@ -349,8 +349,9 @@ class MainController extends Controller
                     if($ball_big_small[$i]==1)
                     {
                         //if big flag
-                        if($result->ball_1>4)
+                        if(intval($result->select('ball_'.$i)->get())>4)
                         {
+                            //if big
                             $ball_big_repeats[$i] +=1;
                             
 
@@ -363,7 +364,7 @@ class MainController extends Controller
 
                     }elseif($ball_big_small[$i]==-1){
                         //if small
-                        if($result->ball_1<=4) 
+                        if(intval($result->select('ball_'.$i)->get())<=4) 
                         {
                             $ball_small_repeats[$i] +=1;
                             
@@ -375,6 +376,13 @@ class MainController extends Controller
                         }
                         
                         
+                    }
+
+                    if($ball_odd_even[$i]==1)
+                    {
+                        //if odd flag
+                        if($result->)
+
                     }
 
                     

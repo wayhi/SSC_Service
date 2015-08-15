@@ -17,8 +17,8 @@ $app->get('/', ['as'=>'home',function(){
    
 ]);
 
-$app->post('/',['as'=>'getURL','uses'=>'MainController@load_ssc']);
-//$app->post('/',['as'=>'getURL','uses'=>'MainController@sendmail']);
+//$app->post('/',['as'=>'getURL','uses'=>'MainController@load_ssc']);
+$app->post('/',['as'=>'getURL','uses'=>'MainController@cal_state']);
 /*
 Route::get('/', array('as' => 'home', function()
 {

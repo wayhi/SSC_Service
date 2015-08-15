@@ -46,7 +46,7 @@ class MainController extends Controller
            
 
     }
-    private function cal_state($type)
+    public function cal_state($type='重庆时时彩')
     {
 
         
@@ -83,8 +83,11 @@ class MainController extends Controller
 
 
         $n=0;
-        //$serial_no ='';
+
+        
         foreach($results as $result){
+
+           
             
             if($n==0){
                 $ssc_log->src_record_id=$result->id;
@@ -108,8 +111,8 @@ class MainController extends Controller
                     $odd_flag = false;
                     $even_repeat_times=1;
                 }
-                /*---each ball initial status */
-                /*1st ball */
+                //---each ball initial status 
+                //1st ball 
                 if($result->ball_1>4)
                 {
                     $ball_big_small[0] =1;
@@ -364,16 +367,36 @@ class MainController extends Controller
 
                     }elseif($ball_big_small[$i]==-1){
                         //if small
-                        if(intval($result->select('ball_'.$i)->get())<=4) 
-                        {
-                            $ball_small_repeats[$i] +=1;
-                            
+                        switch ($i) {
+                            case 0:
+                                if(intval($result->ball_1<=4) 
+                                {
+                                    $ball_small_repeats[$i] +=1;
+                                    
 
-                        }else{
+                                }else{
 
-                            $ball_big_small[$i]=0；
+                                    $ball_big_small[$i]=0；
 
+                                }
+                                break;
+                            case 1:
+                                # code...
+                                break;
+                            case 2:
+                                # code...
+                                break;
+                            case 3:
+                                # code...
+                                break;
+                            case 4:
+                                # code...
+                                break;            
+                            default:
+                                # code...
+                                break;
                         }
+                        
                         
                         
                     }
@@ -381,7 +404,7 @@ class MainController extends Controller
                     if($ball_odd_even[$i]==1)
                     {
                         //if odd flag
-                        if($result->)
+                        //if($result->)
 
                     }
 
@@ -395,9 +418,9 @@ class MainController extends Controller
             }
             
             $n+=1;
-
+        
         }
-
+        
 
 
         $ssc_log->small_repeat_times = $small_repeat_times;

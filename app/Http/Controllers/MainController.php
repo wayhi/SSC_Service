@@ -360,7 +360,7 @@ class MainController extends Controller
 
                         }else{
 
-                            $ball_big_small[$i]=0；
+                            $ball_big_small[$i]=0;
 
                         }
                         
@@ -369,14 +369,14 @@ class MainController extends Controller
                         //if small
                         switch ($i) {
                             case 0:
-                                if(intval($result->ball_1<=4) 
+                                if(intval($result->ball_1<=4))
                                 {
                                     $ball_small_repeats[$i] +=1;
                                     
 
                                 }else{
 
-                                    $ball_big_small[$i]=0；
+                                    $ball_big_small[$i]=0;
 
                                 }
                                 break;
@@ -562,5 +562,90 @@ class MainController extends Controller
 
     }
 
+    public function bet_simulation()
+    {
+
+        $type = '重庆时时彩';
+        $results = SSC::where('type',$type)->orderby('serial_no')->get();
+        $bet_amount =100.00;
+        $max_bet =100.00;
+        $max_bet_record ='';
+        $balance = 0.00;
+        $bs_last = 0;
+        $oe_last =0;
+        $bs =0;
+        $oe=0;
+        $n=0;
+        $bet_times=1;
+        foreach ($results as $result) {
+            
+            if($n==0)
+            {
+                $bs_last = $result->total_big;
+                $oe_last = $result->total_odd;
+            }
+            if($n>0)
+            {
+                $bs = $result->total_big;
+                $oe = $result->total_odd;
+                //win-win
+                if(($bs==$bs_last) && ($oe==$oe_last))
+                {
+                    $balance += $bet_amount*0.98;
+                    $bet_amount = 100.00;
+                   echo 'win!'.$result->serial_no.'--<br>';
+                   
+                }elseif(($bs==$bs_last) && ($oe!=$oe_last)){
+                    //win-lose
+                    $balance += $bet_amount*(-0.02);
+
+                }elseif(($bs!=$bs_last) && ($oe==$oe_last)){
+
+                    $balance += $bet_amount*(-0.02);
+                }elseif(($bs!=$bs_last) && ($oe!=$oe_last)){
+                    //if($bet_times<=6400000)
+                    //{
+                        $balance += $bet_amount*(-1);
+                        $bet_amount = $bet_amount*2;
+                        //$bet_times = $bet_times *2;
+                        if($bet_amount>$max_bet)
+                        {
+                            $max_bet = $bet_amount;
+                            $max_bet_record = $result->serial_no;
+                        }
+                        /*
+                    }else{
+                        $balance += $bet_amount*(-1);
+                        if($bet_amount>$max_bet)
+                        {
+                            $max_bet = $bet_amount;
+                            $max_bet_record = $result->serial_no;
+                        }
+                        $bet_amount = 100.00;
+                        $bet_times =1;
+                       
+                    }
+                    */
+                    
+                    
+                }
+                //if($balance>=5000){
+                //    $porfit +=$balance;
+                //    $balance = 0.00;
+
+                //}
+                $bs_last = $bs;
+                $oe_last = $oe;
+                
+            }
+            $n +=1;
+
+
+        }
+
+        echo 'porfit:'.$balance.'; ';
+        echo 'Max Bet:'.$max_bet.'; ';
+        echo 'Max Bet Round: '.$max_bet_record.'; ';
+    }
              
 }

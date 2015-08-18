@@ -934,7 +934,7 @@ class MainController extends Controller
 
         $data = ['email'=>$maillist,'type'=>$type,'items'=>$items,'times'=>$times,'events'=>$events];
         Mail::send('notification', $data, function($message) use($data){
-            $message->to(['wayhi@163.com'])->bcc($data['email'])->subject('SSC Notification')->from('wayhi@163.com','SSC Notification Service');
+            $message->to(['wayhi@163.com'])->bcc($data['email'])->subject($type.':'.$items[0].$times[0].$events[0])->from('wayhi@163.com','SSC Notification Service');
         });
 
 

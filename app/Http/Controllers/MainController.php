@@ -624,30 +624,49 @@ class MainController extends Controller
         }
         
 
-
+        $items=[];
+        $times=[];
+        $events=[];
+        $i=0;
         $ssc_log->small_repeat_times = $small_repeat_times;
         if($small_repeat_times>=6)
         {
             // Mail::raw('SSC Notification for '.$type.'('.$small_repeat_times.'连小)', 
            //     function($msg) { $msg->to(['james.wang@ylbiz-consulting.com','13501994874@163.com','songhua.lu@189.cn','13701610381@163.com','eric_free2fly@163.com','13701861060@139.com','dsp10886@163.com','wangmib@163.com','assassinwoo@163.com','aking_yang@163.com']); $msg->from('wayhi@163.com','SSC Notification Service'); });
 
-            Self::sendmail($type,'连小',$small_repeat_times);
-             
+            
+            //Self::sendmail($type,'连小',$small_repeat_times);
+            $items = array_add($items,$i,'总和');
+            $times = array_add($times,$i,$small_repeat_times);
+            $events= array_add($events,$i,'连小');
+            $i+=1; 
         }
         $ssc_log->big_repeat_times = $big_repeat_times;
         if($big_repeat_times>=6)
         {
-             Self::sendmail($type,'连大',$big_repeat_times);
+            //Self::sendmail($type,'连大',$big_repeat_times);
+            $items = array_add($items,$i,'总和');
+            $times = array_add($times,$i,$big_repeat_times);
+            $events= array_add($events,$i,'连大');
+            $i+=1; 
         }
         $ssc_log->odd_repeat_times = $odd_repeat_times;
         if($odd_repeat_times>=6)
         {
-             Self::sendmail($type,'连单',$odd_repeat_times);
+             //Self::sendmail($type,'连单',$odd_repeat_times);
+            $items = array_add($items,$i,'总和');
+            $times = array_add($times,$i,$odd_repeat_times);
+            $events= array_add($events,$i,'连单');
+            $i+=1; 
         }
         $ssc_log->even_repeat_times = $even_repeat_times;
         if($even_repeat_times>=6)
         {
-             Self::sendmail($type,'连双',$even_repeat_times);
+            //Self::sendmail($type,'连双',$even_repeat_times);
+            $items = array_add($items,$i,'总和');
+            $times = array_add($times,$i,$even_repeat_times);
+            $events= array_add($events,$i,'连双');
+            $i+=1; 
         }
         $ssc_log->dragon_repeat_times = $dragon_repeat_times;
        
@@ -660,31 +679,149 @@ class MainController extends Controller
 
 
         $ssc_ball_log->odd_repeat_times_1 = $ball_odd_repeats[0];
+        if($ball_odd_repeats[0]>=10){
+            $items = array_add($items,$i,'第1球(万位)');
+            $times = array_add($times,$i,$ball_odd_repeats[0]);
+            $events= array_add($events,$i,'连单');
+            $i+=1; 
+        }
         $ssc_ball_log->even_repeat_times_1 = $ball_even_repeats[0];
+        if($ball_even_repeats[0]>=10){
+            $items = array_add($items,$i,'第1球(万位)');
+            $times = array_add($times,$i,$ball_even_repeats[0]);
+            $events= array_add($events,$i,'连双');
+            $i+=1; 
+        }
         $ssc_ball_log->big_repeat_times_1 = $ball_big_repeats[0];
+        if($ball_big_repeats[0]>=10){
+            $items = array_add($items,$i,'第1球(万位)');
+            $times = array_add($times,$i,$ball_big_repeats[0]);
+            $events= array_add($events,$i,'连大');
+            $i+=1; 
+        }
         $ssc_ball_log->small_repeat_times_1 = $ball_small_repeats[0];
-
+        if($ball_small_repeats[0]>=10){
+            $items = array_add($items,$i,'第1球(万位)');
+            $times = array_add($times,$i,$ball_small_repeats[0]);
+            $events= array_add($events,$i,'连小');
+            $i+=1; 
+        }
         $ssc_ball_log->odd_repeat_times_2 = $ball_odd_repeats[1];
+        if($ball_odd_repeats[1]>=10){
+            $items = array_add($items,$i,'第2球(千位)');
+            $times = array_add($times,$i,$ball_odd_repeats[1]);
+            $events= array_add($events,$i,'连单');
+            $i+=1; 
+        }
         $ssc_ball_log->even_repeat_times_2 = $ball_even_repeats[1];
+        if($ball_even_repeats[1]>=10){
+            $items = array_add($items,$i,'第2球(千位)');
+            $times = array_add($times,$i,$ball_even_repeats[1]);
+            $events= array_add($events,$i,'连双');
+            $i+=1; 
+        }
         $ssc_ball_log->big_repeat_times_2 = $ball_big_repeats[1];
+        if($ball_big_repeats[1]>=10){
+            $items = array_add($items,$i,'第2球(千位)');
+            $times = array_add($times,$i,$ball_big_repeats[1]);
+            $events= array_add($events,$i,'连大');
+            $i+=1; 
+        }
         $ssc_ball_log->small_repeat_times_2 = $ball_small_repeats[1];
+        if($ball_small_repeats[1]>=10){
+            $items = array_add($items,$i,'第2球(千位)');
+            $times = array_add($times,$i,$ball_small_repeats[1]);
+            $events= array_add($events,$i,'连小');
+            $i+=1; 
+        }
 
         $ssc_ball_log->odd_repeat_times_3 = $ball_odd_repeats[2];
+        if($ball_odd_repeats[2]>=10){
+            $items = array_add($items,$i,'第3球(百位)');
+            $times = array_add($times,$i,$ball_odd_repeats[2]);
+            $events= array_add($events,$i,'连单');
+            $i+=1; 
+        }
         $ssc_ball_log->even_repeat_times_3 = $ball_even_repeats[2];
+        if($ball_even_repeats[2]>=10){
+            $items = array_add($items,$i,'第3球(百位)');
+            $times = array_add($times,$i,$ball_even_repeats[2]);
+            $events= array_add($events,$i,'连双');
+            $i+=1; 
+        }
         $ssc_ball_log->big_repeat_times_3 = $ball_big_repeats[2];
+        if($ball_big_repeats[2]>=10){
+            $items = array_add($items,$i,'第3球(百位)');
+            $times = array_add($times,$i,$ball_big_repeats[2]);
+            $events= array_add($events,$i,'连大');
+            $i+=1; 
+        }
         $ssc_ball_log->small_repeat_times_3 = $ball_small_repeats[2];
+        if($ball_small_repeats[2]>=10){
+            $items = array_add($items,$i,'第3球(百位)');
+            $times = array_add($times,$i,$ball_small_repeats[2]);
+            $events= array_add($events,$i,'连小');
+            $i+=1; 
+        }
 
         $ssc_ball_log->odd_repeat_times_4 = $ball_odd_repeats[3];
+        if($ball_odd_repeats[3]>=10){
+            $items = array_add($items,$i,'第4球(十位)');
+            $times = array_add($times,$i,$ball_odd_repeats[3]);
+            $events= array_add($events,$i,'连单');
+            $i+=1; 
+        }
         $ssc_ball_log->even_repeat_times_4 = $ball_even_repeats[3];
+        if($ball_even_repeats[3]>=10){
+            $items = array_add($items,$i,'第4球(十位)');
+            $times = array_add($times,$i,$ball_even_repeats[3]);
+            $events= array_add($events,$i,'连双');
+            $i+=1; 
+        }
         $ssc_ball_log->big_repeat_times_4 = $ball_big_repeats[3];
+        if($ball_big_repeats[3]>=10){
+            $items = array_add($items,$i,'第4球(十位)');
+            $times = array_add($times,$i,$ball_big_repeats[3]);
+            $events= array_add($events,$i,'连大');
+            $i+=1; 
+        }
         $ssc_ball_log->small_repeat_times_4 = $ball_small_repeats[3];
-
+        if($ball_small_repeats[3]>=10){
+            $items = array_add($items,$i,'第4球(十位)');
+            $times = array_add($times,$i,$ball_small_repeats[3]);
+            $events= array_add($events,$i,'连小');
+            $i+=1; 
+        }
         $ssc_ball_log->odd_repeat_times_5 = $ball_odd_repeats[4];
+        if($ball_odd_repeats[4]>=10){
+            $items = array_add($items,$i,'第5球(个位)');
+            $times = array_add($times,$i,$ball_odd_repeats[4]);
+            $events= array_add($events,$i,'连单');
+            $i+=1; 
+        }
         $ssc_ball_log->even_repeat_times_5 = $ball_even_repeats[4];
+        if($ball_even_repeats[4]>=10){
+            $items = array_add($items,$i,'第5球(个位)');
+            $times = array_add($times,$i,$ball_even_repeats[4]);
+            $events= array_add($events,$i,'连双');
+            $i+=1; 
+        }
         $ssc_ball_log->big_repeat_times_5 = $ball_big_repeats[4];
+        if($ball_big_repeats[4]>=10){
+            $items = array_add($items,$i,'第5球(个位)');
+            $times = array_add($times,$i,$ball_big_repeats[4]);
+            $events= array_add($events,$i,'连大');
+            $i+=1; 
+        }
         $ssc_ball_log->small_repeat_times_5 =$ball_small_repeats[4];
-
-        $ssc_ball_log->save();   
+        if($ball_small_repeats[4]>=10){
+            $items = array_add($items,$i,'第5球(个位)');
+            $times = array_add($times,$i,$ball_small_repeats[4]);
+            $events= array_add($events,$i,'连小');
+            $i+=1; 
+        }
+        $ssc_ball_log->save();
+        Self::sendmail2($type,$items,$events,$times);   
 
     }
 
@@ -772,6 +909,32 @@ class MainController extends Controller
         Mail::raw('SSC Notification for '.$type.'('.$times.$event.')', 
                 function($msg) use ($mailtolist){ $msg->to(['wayhi@163.com']);$msg->bcc($mailtolist); 
                  $msg->subject('SSC Notification');$msg->from('wayhi@163.com','SSC Notification Service'); });
+
+    }
+
+
+    private function sendmail2($type,$items,$events,$times)
+    {
+
+        $group = Group::where('name','VIPs')->first();
+        
+        $maillist =[];
+        $n=0;
+        foreach($group->users as $user)
+        {
+            
+            //$mailtolist = array_push($mailtolist,$user->email);
+            $maillist = array_add($maillist,$n,$user->email);
+            $n+=1;
+           
+        }
+
+        $data = ['email'=>$maillist,'type'=>$type,'items'=>$items,'times'=>$times,'events'=>$events];
+        Mail::send('notification', $data, function($message) use($data){
+            $message->to($data['email'])->subject('SSC Notification')->from('wayhi@163.com','SSC Notification Service');
+        });
+
+
 
     }
 

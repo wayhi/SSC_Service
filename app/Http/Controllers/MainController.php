@@ -352,24 +352,90 @@ class MainController extends Controller
                     if($ball_big_small[$i]==1)
                     {
                         //if big flag
-                        if(intval($result->select('ball_'.$i)->get())>4)
-                        {
-                            //if big
-                            $ball_big_repeats[$i] +=1;
-                            
+                        switch ($i) {
+                            case 0:
+                                if(intval($result->ball_1)>4)
+                                {
+                                    $ball_big_repeats[$i] +=1;
+                                    
 
-                        }else{
+                                }else{
 
-                            $ball_big_small[$i]=0;
+                                    $ball_big_small[$i]=0;
 
-                        }
-                        
+                                }
+                                break;
+                            case 1:
+                                if(intval($result->ball_2)>4)
+                                {
+                                    $ball_big_repeats[$i] +=1;
+                                    
 
+                                }else{
+
+                                    $ball_big_small[$i]=0;
+
+                                }
+                                break;    
+                            case 2:
+                                if(intval($result->ball_3)>4)
+                                {
+                                    $ball_big_repeats[$i] +=1;
+                                    
+
+                                }else{
+
+                                    $ball_big_small[$i]=0;
+
+                                }
+                                break;
+                            case 3:
+                                if(intval($result->ball_4)>4)
+                                {
+                                    $ball_big_repeats[$i] +=1;
+                                    
+
+                                }else{
+
+                                    $ball_big_small[$i]=0;
+
+                                }
+                                break;
+                            case 4:
+                                if(intval($result->ball_5)>4)
+                                {
+                                    $ball_big_repeats[$i] +=1;
+                                    
+
+                                }else{
+
+                                    $ball_big_small[$i]=0;
+
+                                }
+                                break;        
+                            default:
+                                
+                                break;
+                                                
+                            }
                     }elseif($ball_big_small[$i]==-1){
                         //if small
                         switch ($i) {
                             case 0:
-                                if(intval($result->ball_1<=4))
+                                if(intval($result->ball_1)<=4)
+                                {
+                                    $ball_small_repeats[$i] +=1;
+                                    
+
+                                }else{
+
+                                    $ball_big_small[$i]=0;
+
+                                }
+
+                                break;
+                            case 1:
+                                if(intval($result->ball_2)<=4)
                                 {
                                     $ball_small_repeats[$i] +=1;
                                     
@@ -380,31 +446,167 @@ class MainController extends Controller
 
                                 }
                                 break;
-                            case 1:
-                                # code...
-                                break;
                             case 2:
-                                # code...
+                                if(intval($result->ball_3)<=4)
+                                {
+                                    $ball_small_repeats[$i] +=1;
+                                    
+
+                                }else{
+
+                                    $ball_big_small[$i]=0;
+
+                                }
                                 break;
                             case 3:
-                                # code...
+                                if(intval($result->ball_4)<=4)
+                                {
+                                    $ball_small_repeats[$i] +=1;
+                                    
+
+                                }else{
+
+                                    $ball_big_small[$i]=0;
+
+                                }
                                 break;
                             case 4:
-                                # code...
+                                if(intval($result->ball_5)<=4)
+                                {
+                                    $ball_small_repeats[$i] +=1;
+                                    
+
+                                }else{
+
+                                    $ball_big_small[$i]=0;
+
+                                }
                                 break;            
-                            default:
-                                # code...
-                                break;
+                            default:    
+                            break;
                         }
                         
-                        
-                        
+
                     }
 
                     if($ball_odd_even[$i]==1)
                     {
-                        //if odd flag
-                        //if($result->)
+                        switch ($i) {
+                            case 0:
+                                if(intval($result->ball_1)%2 != 0)
+                                {
+                                    $ball_odd_repeats[$i] +=1;
+
+                                }else{
+
+                                    $ball_odd_even[$i] =0;
+                                }
+                                break;
+                            case 1:
+                                if(intval($result->ball_2)%2 != 0)
+                                {
+                                    $ball_odd_repeats[$i] +=1;
+
+                                }else{
+
+                                    $ball_odd_even[$i] =0;
+                                }
+                                break;
+                            case 2:
+                                if(intval($result->ball_3)%2 != 0)
+                                {
+                                    $ball_odd_repeats[$i] +=1;
+
+                                }else{
+
+                                    $ball_odd_even[$i] =0;
+                                }
+                                break;
+                            case 3:
+                                if(intval($result->ball_4)%2 != 0)
+                                {
+                                    $ball_odd_repeats[$i] +=1;
+
+                                }else{
+
+                                    $ball_odd_even[$i] =0;
+                                }
+                                break;
+                            case 4:
+                                if(intval($result->ball_5)%2 != 0)
+                                {
+                                    $ball_odd_repeats[$i] +=1;
+
+                                }else{
+
+                                    $ball_odd_even[$i] =0;
+                                }
+                                break;            
+                            default:
+                                
+                                break;
+                        }
+
+                    }elseif($ball_odd_even[$i]==-1){
+                        switch($i) {
+                            case 0:
+                                if(intval($result->ball_1)%2 == 0)
+                                {
+                                    $ball_even_repeats[$i] +=1;
+
+                                }else{
+
+                                    $ball_odd_even[$i] =0;
+                                }
+                                break;
+                            case 1:
+                                if(intval($result->ball_2)%2 == 0)
+                                {
+                                    $ball_even_repeats[$i] +=1;
+
+                                }else{
+
+                                    $ball_odd_even[$i] =0;
+                                }
+                                break;    
+                            
+                            case 2:
+                                if(intval($result->ball_3)%2 == 0)
+                                {
+                                    $ball_even_repeats[$i] +=1;
+
+                                }else{
+
+                                    $ball_odd_even[$i] =0;
+                                }
+                                break;
+                            case 3:
+                                if(intval($result->ball_4)%2 == 0)
+                                {
+                                    $ball_even_repeats[$i] +=1;
+                                    
+
+                                }else{
+
+                                    $ball_odd_even[$i] =0;
+                                }
+                                break;    
+                            case 4:
+                                if(intval($result->ball_5)%2 == 0)
+                                {
+                                    $ball_even_repeats[$i] +=1;
+
+                                }else{
+
+                                    $ball_odd_even[$i] =0;
+                                }
+                                break;    
+                                    
+                            
+                            default:
+                                
+                                break;
+                        }
 
                     }
 
@@ -448,28 +650,41 @@ class MainController extends Controller
              Self::sendmail($type,'连双',$even_repeat_times);
         }
         $ssc_log->dragon_repeat_times = $dragon_repeat_times;
-       /*
-        if($dragon_repeat_times>=6)
-        {
-             Mail::raw('SSC Notification for '.$type.'('.$dragon_repeat_times.'连龙)', 
-                function($msg) { $msg->to(['james.wang@ylbiz-consulting.com']); $msg->from(['wayhi@163.com']); });
-             
-        }*/
+       
         $ssc_log->tiger_repeat_times = $tiger_repeat_times;
-        /*if($tiger_repeat_times>=6)
-        {
-             Mail::raw('SSC Notification for '.$type.'('.$tiger_repeat_times.'连虎)', 
-                function($msg) { $msg->to(['james.wang@ylbiz-consulting.com']); $msg->from(['wayhi@163.com']); });
-             
-        }*/
+        
         $ssc_log->non_equal_times = $non_equal_times;
-        /*if($non_equal_times>=28)
-        {
-             Mail::raw('SSC Notification for '.$type.'('.$non_equal_times.'无和)',  
-                function($msg) { $msg->to(['james.wang@ylbiz-consulting.com']); $msg->from(['wayhi@163.com']); });
-             
-        }*/
-        $ssc_log->save();   
+        
+
+        $ssc_log->save();
+
+
+        $ssc_ball_log->odd_repeat_times_1 = $ball_odd_repeats[0];
+        $ssc_ball_log->even_repeat_times_1 = $ball_even_repeats[0];
+        $ssc_ball_log->big_repeat_times_1 = $ball_big_repeats[0];
+        $ssc_ball_log->small_repeat_times_1 = $ball_small_repeats[0];
+
+        $ssc_ball_log->odd_repeat_times_2 = $ball_odd_repeats[1];
+        $ssc_ball_log->even_repeat_times_2 = $ball_even_repeats[1];
+        $ssc_ball_log->big_repeat_times_2 = $ball_big_repeats[1];
+        $ssc_ball_log->small_repeat_times_2 = $ball_small_repeats[1];
+
+        $ssc_ball_log->odd_repeat_times_3 = $ball_odd_repeats[2];
+        $ssc_ball_log->even_repeat_times_3 = $ball_even_repeats[2];
+        $ssc_ball_log->big_repeat_times_3 = $ball_big_repeats[2];
+        $ssc_ball_log->small_repeat_times_3 = $ball_small_repeats[2];
+
+        $ssc_ball_log->odd_repeat_times_4 = $ball_odd_repeats[3];
+        $ssc_ball_log->even_repeat_times_4 = $ball_even_repeats[3];
+        $ssc_ball_log->big_repeat_times_4 = $ball_big_repeats[3];
+        $ssc_ball_log->small_repeat_times_4 = $ball_small_repeats[3];
+
+        $ssc_ball_log->odd_repeat_times_5 = $ball_odd_repeats[4];
+        $ssc_ball_log->even_repeat_times_5 = $ball_even_repeats[4];
+        $ssc_ball_log->big_repeat_times_5 = $ball_big_repeats[4];
+        $ssc_ball_log->small_repeat_times_5 =$ball_small_repeats[4];
+
+        $ssc_ball_log->save();   
 
     }
 
@@ -521,8 +736,6 @@ class MainController extends Controller
                     
                     $d_t = trim($row->find('td',9)->plaintext);
                     $ssc_record->d_t = $d_t;
-
-                    
 
                     $ssc_record->extra_1 = $row->find('td',10)->plaintext;
                     $ssc_record->extra_2 = $row->find('td',11)->plaintext;

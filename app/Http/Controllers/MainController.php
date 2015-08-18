@@ -821,7 +821,10 @@ class MainController extends Controller
             $i+=1; 
         }
         $ssc_ball_log->save();
-        Self::sendmail2($type,$items,$events,$times);   
+        if(count($items)>0){
+            Self::sendmail2($type,$items,$events,$times);  
+        }
+         
 
     }
 
@@ -931,7 +934,7 @@ class MainController extends Controller
 
         $data = ['email'=>$maillist,'type'=>$type,'items'=>$items,'times'=>$times,'events'=>$events];
         Mail::send('notification', $data, function($message) use($data){
-            $message->to($data['email'])->subject('SSC Notification')->from('wayhi@163.com','SSC Notification Service');
+            $message->to(['wayhi@163.com'])->bcc($data['email'])->subject('SSC Notification')->from('wayhi@163.com','SSC Notification Service');
         });
 
 

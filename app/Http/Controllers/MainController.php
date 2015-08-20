@@ -56,7 +56,7 @@ class MainController extends Controller
         $ssc_ball_log->type = $type;
         
         $results = SSC::where('type',$type)->orderby('serial_no','desc')->take(100)->get();
-        
+        $last_log = Ssc_log::where('type',$type)->orderby('id','desc')->first();
         
         $odd_flag = true;
         $even_flag = true;
@@ -629,20 +629,26 @@ class MainController extends Controller
         $events=[];
         $i=0;
         $ssc_log->small_repeat_times = $small_repeat_times;
-        if($small_repeat_times>=6)
+        if($small_repeat_times==1)
         {
-            // Mail::raw('SSC Notification for '.$type.'('.$small_repeat_times.'连小)', 
-           //     function($msg) { $msg->to(['james.wang@ylbiz-consulting.com','13501994874@163.com','songhua.lu@189.cn','13701610381@163.com','eric_free2fly@163.com','13701861060@139.com','dsp10886@163.com','wangmib@163.com','assassinwoo@163.com','aking_yang@163.com']); $msg->from('wayhi@163.com','SSC Notification Service'); });
-
+            //big-small status changed...
+            $last_log->bs_flag=1;
+            $last_log->save();
+        }elseif($small_repeat_times>=6)
+        {
             
-            //Self::sendmail($type,'连小',$small_repeat_times);
             $items = array_add($items,$i,'总和');
             $times = array_add($times,$i,$small_repeat_times);
             $events= array_add($events,$i,'连小');
             $i+=1; 
         }
         $ssc_log->big_repeat_times = $big_repeat_times;
-        if($big_repeat_times>=6)
+        if($big_repeat_times==1)
+        {
+            //big-small status changed...
+            $last_log->bs_flag=1;
+            $last_log->save();
+        }elseif($big_repeat_times>=6)
         {
             //Self::sendmail($type,'连大',$big_repeat_times);
             $items = array_add($items,$i,'总和');
@@ -651,7 +657,12 @@ class MainController extends Controller
             $i+=1; 
         }
         $ssc_log->odd_repeat_times = $odd_repeat_times;
-        if($odd_repeat_times>=6)
+        if($odd_repeat_times==1)
+        {
+             //odd-even status changed...
+            $last_log->oe_flag=1;
+            $last_log->save();
+        }elseif($odd_repeat_times>=6)
         {
              //Self::sendmail($type,'连单',$odd_repeat_times);
             $items = array_add($items,$i,'总和');
@@ -660,7 +671,12 @@ class MainController extends Controller
             $i+=1; 
         }
         $ssc_log->even_repeat_times = $even_repeat_times;
-        if($even_repeat_times>=6)
+        if($even_repeat_times==1)
+        {
+             //odd-even status changed...
+            $last_log->oe_flag=1;
+            $last_log->save();
+        }elseif($even_repeat_times>=6)
         {
             //Self::sendmail($type,'连双',$even_repeat_times);
             $items = array_add($items,$i,'总和');

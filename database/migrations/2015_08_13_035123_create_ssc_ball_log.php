@@ -15,7 +15,7 @@ class CreateSscBallLog extends Migration
         Schema::create('ssc_ball_log', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type',20);
-            $table->datetime('log_time');
+            $table->datetime('log_time')->nullable();
             $table->integer('src_record_id')->unsigned()->unsigned()->nullable();
             $table->tinyInteger('odd_repeat_times_1')->unsigned()->nullable();
             $table->tinyInteger('even_repeat_times_1')->unsigned()->nullable();

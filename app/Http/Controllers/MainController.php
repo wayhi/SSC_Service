@@ -1042,5 +1042,92 @@ class MainController extends Controller
         echo 'Max Bet:'.$max_bet.'; ';
         echo 'Max Bet Round: '.$max_bet_record.'; ';
     }
+
+    public function Simulate_CQ_Bai($column=3,$times=2)
+    {
+
+        $type = '重庆时时彩';
+        $start_no='20150810024';
+        $results = SSC::where('type',$type)->where('serial_no','>=',$start_no)->orderby('serial_no')->take(500)->get();
+        $base_bet =100.00;
+        $bet_times = 9.8;
+        $balance = 0.00;
+        $base_ball = 0;
+        $win_current = false;
+        $n=0;
+        $last_serial_no ='';
+        $repeat_times = $times;
+        foreach ($results as $result) {
+
+            if($n==0){
+
+                $base_ball = $result->ball_3;
+                $last_serial_no = $result->serial_no;
+
+            }else{
+                if($result->serial_no == $last_serial_no){
+                    $result->delete();
+
+                }else{
+                    if($base_ball==$result->ball_1){
+                        $balance += $base_bet*($bet_times-1);
+                        $win_current = true;
+                    }else{
+                        $balance -=$base_bet;
+
+                    }
+                    if($base_ball==$result->ball_2){
+                        $balance +=$base_bet*($bet_times-1);
+                        $win_current = true;
+                    }else{
+                        $balance -=$base_bet;
+
+                    }
+                    if($base_ball==$result->ball_3){
+                        $balance +=$base_bet*($bet_times-1);
+                        $win_current = true;
+                    }else{
+                        $balance -=$base_bet;
+
+                    }
+                    if($base_ball==$result->ball_4){
+                        $balance +=$base_bet*($bet_times-1);
+                        $win_current = true;
+                    }else{
+                        $balance -=$base_bet;
+
+                    }
+                    if($base_ball==$result->ball_5){
+                        $balance +=$base_bet*($bet_times-1);
+                        $win_current = true;
+                    }else{
+                        $balance -=$base_bet;
+
+                    }
+
+                    $last_serial_no = $result->serial_no;
+                }
+                
+
+            }
+
+            if($win_current)
+            {
+                $win_current=false;
+                $base_ball = $result->ball_3;
+            }else{
+                $repeat_times -= 1;
+                if($repeat_times<=0){
+                    $base_ball = $result->ball_3;
+                }
+            }
+            $n += 1;
+
+        }
+
+        echo 'porfit:'.$balance.'; ';
+
+
+    }
              
 }

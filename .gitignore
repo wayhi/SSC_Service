@@ -2,3 +2,5 @@
 .env
 
 *.zip
+
+app/Http/routes.php

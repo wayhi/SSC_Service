@@ -17,8 +17,9 @@ $app->get('/', ['as'=>'home',function(){
    
 ]);
 
-$app->post('/',['as'=>'getURL','uses'=>'MainController@Simulate_CQ_Bai']);
-//$app->post('/',['as'=>'getURL','uses'=>'MainController@bet_simulation']);
+
+$app->post('/',['as'=>'getURL','uses'=>'MainController@cal_state']);
+
 /*
 Route::get('/', array('as' => 'home', function()
 {

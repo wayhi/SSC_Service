@@ -898,6 +898,22 @@ class MainController extends Controller
                     
                     $ssc_record->save();
                     $n+=1;
+                    $ssc_number_apr = new Ssc_number_appearance;
+                    $data = Self::count($ssc_record->type,10);
+                    $ssc_number_apr->type = $ssc_record->type;
+                    $ssc_number_apr->period = 10;
+                    $ssc_number_apr->src_record_id = $ssc_record->id;
+                    $ssc_number_apr->apr_times_0 = $data[0];
+                    $ssc_number_apr->apr_times_1 = $data[1];
+                    $ssc_number_apr->apr_times_2 = $data[2];
+                    $ssc_number_apr->apr_times_3 = $data[3];
+                    $ssc_number_apr->apr_times_4 = $data[4];
+                    $ssc_number_apr->apr_times_5 = $data[5];
+                    $ssc_number_apr->apr_times_6 = $data[6];
+                    $ssc_number_apr->apr_times_7 = $data[7];
+                    $ssc_number_apr->apr_times_8 = $data[8];
+                    $ssc_number_apr->apr_times_9 = $data[9];
+                    $ssc_number_apr->save();
                 }
                 
 
@@ -954,6 +970,199 @@ class MainController extends Controller
         });
 
 
+
+    }
+
+    private function count($type,$qty)
+    {
+        $records = ssc_record::where('type',$type)->orderby('serial_no','desc')->take($qty)->get();
+        $count_arr = [];
+
+        for ($i=0; $i <10 ; $i++) { 
+            $count_arr[$i]=0;
+        }
+        //$count_arr[0] = 0;
+        foreach($records as $record)
+        {
+            
+            switch (intval($record->ball_1)) {
+                case 0:
+                    $count_arr[0] +=1;
+                    break;
+                case 1:
+                    $count_arr[1] +=1;
+                    break;
+                case 2:
+                    $count_arr[2] +=1;
+                    break;  
+                case 3:
+                    $count_arr[3] +=1;
+                    break;  
+                case 4:
+                    $count_arr[4] +=1;
+                    break;  
+                case 5:
+                    $count_arr[5] +=1;
+                    break; 
+                case 6:
+                    $count_arr[6] +=1;
+                    break; 
+                case 7:
+                    $count_arr[7] +=1;
+                    break;
+                case 8:
+                    $count_arr[8] +=1;
+                    break;  
+                case 9:
+                    $count_arr[9] +=1;
+                    break;                      
+                default:
+                    
+                    break;
+            }
+            switch (intval($record->ball_2)) {
+                case 0:
+                    $count_arr[0] +=1;
+                    break;
+                case 1:
+                    $count_arr[1] +=1;
+                    break;
+                case 2:
+                    $count_arr[2] +=1;
+                    break;  
+                case 3:
+                    $count_arr[3] +=1;
+                    break;  
+                case 4:
+                    $count_arr[4] +=1;
+                    break;  
+                case 5:
+                    $count_arr[5] +=1;
+                    break; 
+                case 6:
+                    $count_arr[6] +=1;
+                    break; 
+                case 7:
+                    $count_arr[7] +=1;
+                    break;
+                case 8:
+                    $count_arr[8] +=1;
+                    break;  
+                case 9:
+                    $count_arr[9] +=1;
+                    break;                      
+                default:
+                    
+                    break;
+            }
+            switch (intval($record->ball_3)) {
+                case 0:
+                    $count_arr[0] +=1;
+                    break;
+                case 1:
+                    $count_arr[1] +=1;
+                    break;
+                case 2:
+                    $count_arr[2] +=1;
+                    break;  
+                case 3:
+                    $count_arr[3] +=1;
+                    break;  
+                case 4:
+                    $count_arr[4] +=1;
+                    break;  
+                case 5:
+                    $count_arr[5] +=1;
+                    break; 
+                case 6:
+                    $count_arr[6] +=1;
+                    break; 
+                case 7:
+                    $count_arr[7] +=1;
+                    break;
+                case 8:
+                    $count_arr[8] +=1;
+                    break;  
+                case 9:
+                    $count_arr[9] +=1;
+                    break;                      
+                default:
+                    
+                    break;
+            }
+            switch (intval($record->ball_4)) {
+                case 0:
+                    $count_arr[0] +=1;
+                    break;
+                case 1:
+                    $count_arr[1] +=1;
+                    break;
+                case 2:
+                    $count_arr[2] +=1;
+                    break;  
+                case 3:
+                    $count_arr[3] +=1;
+                    break;  
+                case 4:
+                    $count_arr[4] +=1;
+                    break;  
+                case 5:
+                    $count_arr[5] +=1;
+                    break; 
+                case 6:
+                    $count_arr[6] +=1;
+                    break; 
+                case 7:
+                    $count_arr[7] +=1;
+                    break;
+                case 8:
+                    $count_arr[8] +=1;
+                    break;  
+                case 9:
+                    $count_arr[9] +=1;
+                    break;                      
+                default:
+                    
+                    break;
+            }
+            switch (intval($record->ball_5)) {
+                case 0:
+                    $count_arr[0] +=1;
+                    break;
+                case 1:
+                    $count_arr[1] +=1;
+                    break;
+                case 2:
+                    $count_arr[2] +=1;
+                    break;  
+                case 3:
+                    $count_arr[3] +=1;
+                    break;  
+                case 4:
+                    $count_arr[4] +=1;
+                    break;  
+                case 5:
+                    $count_arr[5] +=1;
+                    break; 
+                case 6:
+                    $count_arr[6] +=1;
+                    break; 
+                case 7:
+                    $count_arr[7] +=1;
+                    break;
+                case 8:
+                    $count_arr[8] +=1;
+                    break;  
+                case 9:
+                    $count_arr[9] +=1;
+                    break;                      
+                default:
+                    
+                    break;
+            }
+        }
+
+       return $count_arr; 
 
     }
 

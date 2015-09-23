@@ -975,7 +975,7 @@ class MainController extends Controller
 
     private function apr_count($type,$qty)
     {
-        $records = ssc_record::where('type',$type)->orderby('serial_no','desc')->take($qty)->get();
+        $records = SSC::where('type',$type)->orderby('serial_no','desc')->take($qty)->get();
         $count_arr = [];
 
         for ($i=0; $i <10 ; $i++) { 

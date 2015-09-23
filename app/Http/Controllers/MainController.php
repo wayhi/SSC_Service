@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request, Mail;
-use App\SSC, App\Ssc_log,App\User,App\Ssc_ball_log,App\Group;
+use App\SSC, App\Ssc_number_appearance,App\Ssc_log,App\User,App\Ssc_ball_log,App\Group;
 include_once('simple_html_dom.php'); 
 
 class MainController extends Controller

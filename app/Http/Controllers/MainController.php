@@ -899,7 +899,7 @@ class MainController extends Controller
                     $ssc_record->save();
                     $n+=1;
                     $ssc_number_apr = new Ssc_number_appearance;
-                    $data = Self::count($ssc_record->type,10);
+                    $data = Self::apr_count($ssc_record->type,10);
                     $ssc_number_apr->type = $ssc_record->type;
                     $ssc_number_apr->period = 10;
                     $ssc_number_apr->src_record_id = $ssc_record->id;
@@ -973,7 +973,7 @@ class MainController extends Controller
 
     }
 
-    private function count($type,$qty)
+    private function apr_count($type,$qty)
     {
         $records = ssc_record::where('type',$type)->orderby('serial_no','desc')->take($qty)->get();
         $count_arr = [];

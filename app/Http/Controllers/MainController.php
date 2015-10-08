@@ -18,9 +18,8 @@ class MainController extends Controller
     public function load_ssc()
     {
 
-        $url=['CQ'=>'/member/final/LT_result.php?gtype=CQ',
-              'TJ'=>'/member/final/LT_result.php?gtype=TJ',
-              'JX'=>'/member/final/LT_result.php?gtype=JX',
+        $url=['CQ'=>'/app/member/Lottery/list.php',
+              'JX'=>'/app/member/Lottery/list_jxssc.php',
         ];
         $hosts_pool = ['http://www.hg7277.com',
         'http://www.hg5789.com',
@@ -32,12 +31,13 @@ class MainController extends Controller
         'http://www.cr007.com',
         'http://www.cr003.com',
         'http://www.hg29.com',
+        'http://www.996699.cc'
         ];
         //$host = $hosts_pool[rand(0,9)];
 
-            Self::load_html_db($hosts_pool[rand(0,9)].$url['CQ']);
-            Self::load_html_db($hosts_pool[rand(0,9)].$url['TJ']);
-            Self::load_html_db($hosts_pool[rand(0,9)].$url['JX']);
+            Self::load_html_db($hosts_pool[rand(0,10)].$url['CQ'],'重庆时时彩');
+            //Self::load_html_db($hosts_pool[rand(0,10)].$url['TJ']);
+            Self::load_html_db($hosts_pool[rand(0,10)].$url['JX'],'江西时时彩');
 
             ///update log
             //Self::cal_state('重庆时时彩');
@@ -846,76 +846,79 @@ class MainController extends Controller
 
 
 
-    private function load_html_db($url)
+    private function load_html_db($url,$type)
     {
         $html =file_get_html($url);
         $n=0;
-        foreach ($html->find('tr[class=R_tr]') as $row){
-                $type = trim($row->find('td',0)->plaintext);
-                if(is_null($row->find('td',1))){
-                    
-                    return;
-                }
-                $serial_no = trim($row->find('td',1)->plaintext);
-                $record_exist = SSC::where('type',$type)->where('serial_no',$serial_no)->first();
-                if($record_exist){
-
-                    break;
-                }else{
-                    
-                    $ssc_record = new SSC;
-                    $ssc_record->type = $row->find('td',0)->plaintext;
-                    $ssc_record->serial_no = $row->find('td',1)->plaintext;
-                    $ssc_record->record_time = $row->find('td',2)->plaintext;
-                    $ssc_record->ball_1 = intval(substr($row->find('td',3)->find('img',0)->src,-5,1));
-                    $ssc_record->ball_2 = intval(substr($row->find('td',4)->find('img',0)->src,-5,1));
-                    $ssc_record->ball_3 = intval(substr($row->find('td',5)->find('img',0)->src,-5,1));
-                    $ssc_record->ball_4 = intval(substr($row->find('td',6)->find('img',0)->src,-5,1));
-                    $ssc_record->ball_5 = intval(substr($row->find('td',7)->find('img',0)->src,-5,1));
-                    $str1 = explode('/',$row->find('td',8)->plaintext);
-                    $ssc_record->total_num = intval($str1[0]);
-                    if(trim($str1[1])=='总和大'){
-                        $ssc_record->total_big = 1;
-                        
-
-                    }elseif(trim($str1[1])=='总和小'){
-                        $ssc_record->total_big = 0;
-                        
-                    }
-                    if(trim($str1[2])=='总和单'){
-                        $ssc_record->total_odd = 1;
-                        
-                    }elseif(trim($str1[2])=='总和双'){
-                        $ssc_record->total_odd = 0;
-                        
-                    }
-                    
-                    $d_t = trim($row->find('td',9)->plaintext);
-                    $ssc_record->d_t = $d_t;
-
-                    $ssc_record->extra_1 = $row->find('td',10)->plaintext;
-                    $ssc_record->extra_2 = $row->find('td',11)->plaintext;
-                    
-                    $ssc_record->save();
+        foreach ($html->find('tr[class=line_list]') as $row){
+                if($n==0){
                     $n+=1;
-                    $ssc_number_apr = new Ssc_number_appearance;
-                    $data = Self::apr_count($ssc_record->type,10);
-                    $ssc_number_apr->type = $ssc_record->type;
-                    $ssc_number_apr->period = 10;
-                    $ssc_number_apr->src_record_id = $ssc_record->id;
-                    $ssc_number_apr->apr_times_0 = $data[0];
-                    $ssc_number_apr->apr_times_1 = $data[1];
-                    $ssc_number_apr->apr_times_2 = $data[2];
-                    $ssc_number_apr->apr_times_3 = $data[3];
-                    $ssc_number_apr->apr_times_4 = $data[4];
-                    $ssc_number_apr->apr_times_5 = $data[5];
-                    $ssc_number_apr->apr_times_6 = $data[6];
-                    $ssc_number_apr->apr_times_7 = $data[7];
-                    $ssc_number_apr->apr_times_8 = $data[8];
-                    $ssc_number_apr->apr_times_9 = $data[9];
-                    $ssc_number_apr->save();
+                }else{
+                    //$type = trim($row->find('td',0)->plaintext);
+                    if(is_null($row->find('td',1))){
+                        
+                        return;
+                    }
+                    $serial_no = trim($row->find('td',1)->plaintext);
+                    $record_exist = SSC::where('type',$type)->where('serial_no',$serial_no)->first();
+                    if($record_exist){
+
+                        break;
+                    }else{
+                        
+                        $ssc_record = new SSC;
+                        $ssc_record->type = $type;
+                        $ssc_record->serial_no = $row->find('td',1)->plaintext;
+                        //$ssc_record->record_time = $row->find('td',2)->plaintext;
+                        $ssc_record->ball_1 = intval(substr($row->find('td',2)->find('img',0)->src,-5,1));
+                        $ssc_record->ball_2 = intval(substr($row->find('td',2)->find('img',1)->src,-5,1));
+                        $ssc_record->ball_3 = intval(substr($row->find('td',2)->find('img',2)->src,-5,1));
+                        $ssc_record->ball_4 = intval(substr($row->find('td',2)->find('img',3)->src,-5,1));
+                        $ssc_record->ball_5 = intval(substr($row->find('td',2)->find('img',4)->src,-5,1));
+                        $str1 = explode('/',$row->find('td',3)->plaintext);
+                        $ssc_record->total_num = intval($str1[0]);
+                        if(trim($str1[1])=='大'){
+                            $ssc_record->total_big = 1;
+                            
+
+                        }elseif(trim($str1[1])=='小'){
+                            $ssc_record->total_big = 0;
+                            
+                        }
+                        if(trim($str1[2])=='单'){
+                            $ssc_record->total_odd = 1;
+                            
+                        }elseif(trim($str1[2])=='双'){
+                            $ssc_record->total_odd = 0;
+                            
+                        }
+                        
+                        $d_t = trim($row->find('td',4)->plaintext);
+                        $ssc_record->d_t = $d_t;
+
+                        $ssc_record->extra_1 = $row->find('td',5)->plaintext;
+                        $ssc_record->extra_2 = $row->find('td',6)->plaintext;
+                        
+                        $ssc_record->save();
+                        $n+=1;
+                        $ssc_number_apr = new Ssc_number_appearance;
+                        $data = Self::apr_count($ssc_record->type,10);
+                        $ssc_number_apr->type = $ssc_record->type;
+                        $ssc_number_apr->period = 10;
+                        $ssc_number_apr->src_record_id = $ssc_record->id;
+                        $ssc_number_apr->apr_times_0 = $data[0];
+                        $ssc_number_apr->apr_times_1 = $data[1];
+                        $ssc_number_apr->apr_times_2 = $data[2];
+                        $ssc_number_apr->apr_times_3 = $data[3];
+                        $ssc_number_apr->apr_times_4 = $data[4];
+                        $ssc_number_apr->apr_times_5 = $data[5];
+                        $ssc_number_apr->apr_times_6 = $data[6];
+                        $ssc_number_apr->apr_times_7 = $data[7];
+                        $ssc_number_apr->apr_times_8 = $data[8];
+                        $ssc_number_apr->apr_times_9 = $data[9];
+                        $ssc_number_apr->save();
+                        }
                 }
-                
 
             }
 

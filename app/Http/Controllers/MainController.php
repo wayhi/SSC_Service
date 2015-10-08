@@ -915,15 +915,20 @@ class MainController extends Controller
                         $ssc_number_apr->apr_times_8 = $data[8];
                         $ssc_number_apr->apr_times_9 = $data[9];
                         $ssc_number_apr->save();
+                        if($n>0){
+
+                            Self::cal_state($type);
                         }
+                    }
+
+                    
                 }
 
+                
+
             }
 
-            if($n>0){
-
-                Self::cal_state($type);
-            }
+        
 
 
     }

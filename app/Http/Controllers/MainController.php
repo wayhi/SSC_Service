@@ -29,15 +29,14 @@ class MainController extends Controller
         'http://www.hg3789.com',
         'http://www.hg3868.com',
         'http://www.cr007.com',
-        'http://www.cr003.com',
         'http://www.hg29.com',
         'http://www.996699.cc'
         ];
         //$host = $hosts_pool[rand(0,9)];
 
-            Self::load_html_db($hosts_pool[rand(0,10)].$url['CQ'],'重庆时时彩');
+            Self::load_html_db($hosts_pool[rand(0,9)].$url['CQ'],'重庆时时彩');
             //Self::load_html_db($hosts_pool[rand(0,10)].$url['TJ']);
-            Self::load_html_db($hosts_pool[rand(0,10)].$url['JX'],'江西时时彩');
+            Self::load_html_db($hosts_pool[rand(0,9)].$url['JX'],'江西时时彩');
 
             ///update log
             //Self::cal_state('重庆时时彩');

@@ -38,11 +38,7 @@ class MainController extends Controller
             //Self::load_html_db($hosts_pool[rand(0,10)].$url['TJ']);
             Self::load_html_db($hosts_pool[rand(0,9)].$url['JX'],'江西时时彩');
 
-            ///update log
-            //Self::cal_state('重庆时时彩');
-            //Self::cal_state('天津时时彩');
-            //Self::cal_state('江西时时彩');
-           
+
 
     }
     public function cal_state($type='重庆时时彩')
@@ -850,14 +846,17 @@ class MainController extends Controller
         $html =file_get_html($url);
         $n=0;
         foreach ($html->find('tr[class=line_list]') as $row){
-                if($n==0){
+
+            if($n==0){
                     $n+=1;
-                }else{
-                    //$type = trim($row->find('td',0)->plaintext);
+            }else{
+                    
                     if(is_null($row->find('td',1))){
-                        
+                    
                         return;
                     }
+
+                
                     $serial_no = trim($row->find('td',1)->plaintext);
                     $record_exist = SSC::where('type',$type)->where('serial_no',$serial_no)->first();
                     if($record_exist){

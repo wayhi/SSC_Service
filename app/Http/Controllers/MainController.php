@@ -868,7 +868,7 @@ class MainController extends Controller
                         
                         $ssc_record = new SSC;
                         $ssc_record->type = $type;
-                        $ssc_record->serial_no = $row->find('td',1)->plaintext;
+                        $ssc_record->serial_no = trim($row->find('td',1)->plaintext);
                         //$ssc_record->record_time = $row->find('td',2)->plaintext;
                         $ssc_record->ball_1 = intval(substr($row->find('td',2)->find('img',0)->src,-5,1));
                         $ssc_record->ball_2 = intval(substr($row->find('td',2)->find('img',1)->src,-5,1));

@@ -75,15 +75,29 @@ class MainController extends Controller
         $ball_odd_repeats =[];
         $ball_even_repeats =[];
 
-
+        $ssc_number_missed = new Ssc_number_missed;
+        $num_missed_times = [];
+        for ($i=0; $i < 10; $i++) { 
+            $num_missed_times[$i] = 1;
+        }
 
         $n=0;
 
         
         foreach($results as $result){
 
-           
-            
+           $num_missed_times[$result->ball_1]=0;
+           $num_missed_times[$result->ball_2]=0;
+           $num_missed_times[$result->ball_3]=0;
+           $num_missed_times[$result->ball_4]=0;
+           $num_missed_times[$result->ball_5]=0;
+           for ($i=0; $i < 10; $i++) { 
+                if($num_missed_times[$i] > 1)
+                {
+                    $num_missed_times[$i] =+1;
+                }
+            }
+ 
             if($n==0){
                 $ssc_log->src_record_id=$result->id;
                 $ssc_ball_log->src_record_id=$result->id;

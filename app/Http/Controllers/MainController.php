@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request, Mail;
-use App\SSC, App\Ssc_number_appearance,App\Ssc_log,App\User,App\Ssc_ball_log,App\Group;
+use App\SSC, App\Ssc_number_appearance,App\Ssc_number_missed,App\Ssc_log,App\User,App\Ssc_ball_log,App\Group;
 include_once('simple_html_dom.php'); 
 
 class MainController extends Controller
@@ -52,7 +52,8 @@ class MainController extends Controller
         
         $results = SSC::where('type',$type)->orderby('serial_no','desc')->take(100)->get();
         $last_log = Ssc_log::where('type',$type)->orderby('id','desc')->first();
-        
+        //
+
         $odd_flag = true;
         $even_flag = true;
         $small_flag = true;
@@ -75,28 +76,14 @@ class MainController extends Controller
         $ball_odd_repeats =[];
         $ball_even_repeats =[];
 
-        $ssc_number_missed = new Ssc_number_missed;
-        $num_missed_times = [];
-        for ($i=0; $i < 10; $i++) { 
-            $num_missed_times[$i] = 1;
-        }
+        /*
+        
+        */
 
         $n=0;
 
         
-        foreach($results as $result){
-
-           $num_missed_times[$result->ball_1]=0;
-           $num_missed_times[$result->ball_2]=0;
-           $num_missed_times[$result->ball_3]=0;
-           $num_missed_times[$result->ball_4]=0;
-           $num_missed_times[$result->ball_5]=0;
-           for ($i=0; $i < 10; $i++) { 
-                if($num_missed_times[$i] > 1)
-                {
-                    $num_missed_times[$i] =+1;
-                }
-            }
+        foreach($results as $result){           
  
             if($n==0){
                 $ssc_log->src_record_id=$result->id;
@@ -846,6 +833,69 @@ class MainController extends Controller
             $i+=1; 
         }
         $ssc_ball_log->save();
+
+        $last_missed = Ssc_number_missed::where('type',$type)->orderby('id','desc')->first();
+        if($last_missed->missed_times_0>=10){
+            $items = array_add($items,$i,'数字0连续');
+            $times = array_add($times,$i,$last_missed->missed_times_0);
+            $events= array_add($events,$i,'次遗漏');
+            $i+=1; 
+        }
+        if($last_missed->missed_times_1>=10){
+            $items = array_add($items,$i,'数字1连续');
+            $times = array_add($times,$i,$last_missed->missed_times_1);
+            $events= array_add($events,$i,'次遗漏');
+            $i+=1; 
+        }
+        if($last_missed->missed_times_2>=10){
+            $items = array_add($items,$i,'数字2连续');
+            $times = array_add($times,$i,$last_missed->missed_times_2);
+            $events= array_add($events,$i,'次遗漏');
+            $i+=1; 
+        }
+        if($last_missed->missed_times_3>=10){
+            $items = array_add($items,$i,'数字3连续');
+            $times = array_add($times,$i,$last_missed->missed_times_3);
+            $events= array_add($events,$i,'次遗漏');
+            $i+=1; 
+        }
+        if($last_missed->missed_times_4>=10){
+            $items = array_add($items,$i,'数字4连续');
+            $times = array_add($times,$i,$last_missed->missed_times_4);
+            $events= array_add($events,$i,'次遗漏');
+            $i+=1; 
+        }
+        if($last_missed->missed_times_5>=10){
+            $items = array_add($items,$i,'数字5连续');
+            $times = array_add($times,$i,$last_missed->missed_times_5);
+            $events= array_add($events,$i,'次遗漏');
+            $i+=1; 
+        }
+        if($last_missed->missed_times_6>=10){
+            $items = array_add($items,$i,'数字6连续');
+            $times = array_add($times,$i,$last_missed->missed_times_6);
+            $events= array_add($events,$i,'次遗漏');
+            $i+=1; 
+        }
+        if($last_missed->missed_times_7>=10){
+            $items = array_add($items,$i,'数字7连续');
+            $times = array_add($times,$i,$last_missed->missed_times_7);
+            $events= array_add($events,$i,'次遗漏');
+            $i+=1; 
+        }
+        if($last_missed->missed_times_8>=10){
+            $items = array_add($items,$i,'数字8连续');
+            $times = array_add($times,$i,$last_missed->missed_times_8);
+            $events= array_add($events,$i,'次遗漏');
+            $i+=1; 
+        }
+        if($last_missed->missed_times_9>=10){
+            $items = array_add($items,$i,'数字9连续');
+            $times = array_add($times,$i,$last_missed->missed_times_9);
+            $events= array_add($events,$i,'次遗漏');
+            $i+=1; 
+        }
+
         if(count($items)>0){
             Self::sendmail2($type,$items,$events,$times);  
         }
@@ -904,6 +954,7 @@ class MainController extends Controller
                             $ssc_record->total_odd = 0;
                             
                         }
+                    
                         
                         $d_t = trim($row->find('td',4)->plaintext);
                         $ssc_record->d_t = $d_t;
@@ -913,6 +964,46 @@ class MainController extends Controller
                         
                         $ssc_record->save();
                         $n+=1;
+
+
+                       
+                        
+                        $last_missed = Ssc_number_missed::where('type',$type)->orderby('id','desc')->first();
+                        
+                        //echo $last_missed->missed_times_0;
+                        $num_missed_times[0] = $last_missed->missed_times_0+1;
+                        $num_missed_times[1] = $last_missed->missed_times_1+1;
+                        $num_missed_times[2] = $last_missed->missed_times_2+1;
+                        $num_missed_times[3] = $last_missed->missed_times_3+1;
+                        $num_missed_times[4] = $last_missed->missed_times_4+1;
+                        $num_missed_times[5] = $last_missed->missed_times_5+1;
+                        $num_missed_times[6] = $last_missed->missed_times_6+1;
+                        $num_missed_times[7] = $last_missed->missed_times_7+1;
+                        $num_missed_times[8] = $last_missed->missed_times_8+1;
+                        $num_missed_times[9] = $last_missed->missed_times_9+1;
+
+                        $num_missed_times[$ssc_record->ball_1] = 0;
+                        $num_missed_times[$ssc_record->ball_2] = 0;
+                        $num_missed_times[$ssc_record->ball_3] = 0;
+                        $num_missed_times[$ssc_record->ball_4] = 0;
+                        $num_missed_times[$ssc_record->ball_5] = 0;
+
+                        $new_missed = new Ssc_number_missed;
+                        $new_missed->type = $type;
+                        $new_missed->src_record_id= $ssc_record->id;
+                        $new_missed->missed_times_0 = $num_missed_times[0];
+                        $new_missed->missed_times_1 = $num_missed_times[1];
+                        $new_missed->missed_times_2 = $num_missed_times[2];
+                        $new_missed->missed_times_3 = $num_missed_times[3];
+                        $new_missed->missed_times_4 = $num_missed_times[4];
+                        $new_missed->missed_times_5 = $num_missed_times[5];
+                        $new_missed->missed_times_6 = $num_missed_times[6];
+                        $new_missed->missed_times_7 = $num_missed_times[7];
+                        $new_missed->missed_times_8 = $num_missed_times[8];
+                        $new_missed->missed_times_9 = $num_missed_times[9];
+                        $new_missed->save();
+
+
                         $ssc_number_apr = new Ssc_number_appearance;
                         $data = Self::apr_count($ssc_record->type,10);
                         $ssc_number_apr->type = $ssc_record->type;
